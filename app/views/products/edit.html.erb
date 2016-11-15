@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Product</title>
+  </head>
+  <body>
+    <h1>Editing Product</h1>
+    <br>
+    <form action="/products/<%= @product.id %>" method="post">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <input name="_method" value="patch" type="hidden">
+      <label><u>Category:</u></label><br>
+      <select name="category">
+        <option value="1">Electronics</option>
+        <option value="2">Household</option>
+        <option value="3">Gardening</option>
+        <option value="4">Automotive</option>
+        <option value="5">Ninjas</option>
+      </select><br><br>
+      <label><u>Name:</u></label> <%= flash[:name_error] %><br>
+      <input name="name" type="text" value="<%= @product.name %>"><br><br>
+      <label><u>Description:</u></label> <%= flash[:description_error] %><br>
+      <textarea name="description" type="text"><%= @product.description %></textarea><br><br>
+      <label><u>Price:</u></label> <%= flash[:pricing_error] %><br>
+      <input name="pricing" type="float" value="<%= @product.pricing %>"><br><br>
+      <button type="submit">Update</button>
+    </form>
+    <br>
+    <a href="/products/<%= @product.id %>"><button>Show</button></a> | <a href="/products"><button>Back</button></a>
+  </body>
+</html>

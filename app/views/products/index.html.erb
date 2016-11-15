@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>All the Products</title>
+  </head>
+  <body>
+    <h1>Listing Products</h1>
+    <a href="/comments"><button>All Comments</button></a><br>
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Category</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each do |product| %>
+        <tr>
+          <td><%= product.name %></td>
+          <td><%= product.description %></td>
+          <td>$ <%= '%.2f' % product.pricing %></td>
+          <td><%= product.category.name %></td>
+          <td>
+            <a href="/products/<%=product.id %>"><button>Show</button></a> |
+            <a href="/products/<%=product.id %>/edit"><button>Edit</button></a> |
+            <form action="/products/<%= product.id %>" method="post" style="display:inline-block">
+              <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+              <input name="_method" value="delete" type="hidden">
+              <button type="submit">Destroy</button>
+            </form>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+    <a href="/products/new"><button>New Product</button></a>
+  </body>
+</html>

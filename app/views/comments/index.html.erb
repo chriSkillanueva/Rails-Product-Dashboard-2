@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>All Comments</title>
+  </head>
+  <body>
+    <h1>All Comments</h1>
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Comments</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @comments.each do |comment| %>
+        <tr>
+          <td><a href="/products/<%= comment.product.id %>"><%= comment.product.name %></a></td>
+          <td><%= comment.comment %></td>
+          <td><%= comment.created_at.strftime("%B %-d, %Y %-l:%M %P") %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+    <a href="/products"><button>Back</button></a>
+  </body>
+</html>

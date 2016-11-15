@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Product Info</title>
+  </head>
+  <body>
+    <h3><u>Product Info</u></h3>
+    <p>Name: <%= @product.name %></p>
+    <p>Description: <%= @product.description %></p>
+    <p>Price: $ <%= '%.2f' % @product.pricing %></p>
+    <p>Category: <%= @product.category.name %></p>
+    <br>
+    <a href="/products/<%= @product.id %>/edit"><button>Edit</button></a> | <a href="/products"><button>Back</button></a>
+    <br><br>
+    <form action="/products/<%= @product.id %>/comments" method="post">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <h3><u>Comment:</u> <%= flash[:comment_error] %></h3>
+      <textarea name="comment">Enter Comment</textarea><br><br>
+      <button type="submit">Submit</button>
+    </form>
+    <br><br>
+    <table>
+      <thead>
+        <tr>
+          <th>Comment</th>
+          <th>Date Added</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @comments.each do |comment| %>
+        <tr>
+          <td><%= comment.comment %></td>
+          <td><%= comment.created_at.strftime("%B %-d, %Y %-l:%M %P") %></td>
+          <td>
+            <form action="/comments/<%= comment.id %>" method="post" style="display:inline-block">
+              <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+              <input name="_method" value="delete" type="hidden">
+              <button type="submit">Destroy</button>
+            </form>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </body>
+</html>
